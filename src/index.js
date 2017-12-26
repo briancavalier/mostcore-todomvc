@@ -3,6 +3,8 @@
 // 1. Add AppStateWithCompletedCount type and derive it from AppState
 //    via action stream
 // 2. Use CSS to show/hide
+// 3. localStorage
+// 4. Comments/walkthrough
 import { skipRepeats, map, merge, scan, runEffects } from '@most/core'
 import { newDefaultScheduler } from '@most/scheduler'
 import { hashchange } from '@most/dom-event'
