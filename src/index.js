@@ -1,50 +1,32 @@
 // @flow
-import type { Stream } from '@most/types'
-import { tap, filter, map, mergeArray, scan, runEffects } from '@most/core'
+// TODO:
+// 1. Add AppStateWithCompletedCount type and derive it from AppState
+//    via action stream
+// 2. Use CSS to show/hide
+import { skipRepeats, map, mergeArray, scan, runEffects } from '@most/core'
 import { newDefaultScheduler } from '@most/scheduler'
-import { id, compose } from '@most/prelude'
-import { submit, hashchange } from '@most/dom-event'
+import { hashchange } from '@most/dom-event'
 import { bind } from 'hyperhtml'
 
-import { emptyApp, addTodo, setFilter, runAction } from './model'
+import { emptyApp, setFilter } from './model'
 import { updateView } from './view'
+import { type Action, handleFilterChange, runAction } from './action'
+import { createHyperEventAdapter } from './hyperEventAdapter'
 
-type HashChangeEvent = { newURL: string } & Event
-type DOMEvent<E> = { target: E } & Event
-type SubmitEvent = DOMEvent<HTMLFormElement>
-
-type As<B, A = *> = $Call<A, A => B>
-
-const fail = (s) => { throw new Error(s) }
-const qs = (s, el) => el.querySelector(s) || fail(`${s} not found`)
-
-const isKey = (keyCode: number) => filter(e => e.keyCode === keyCode)
-const match = (query: string) => filter(e => e.target.matches(query))
-const resetForm = tap(e => e.target.reset())
-const preventDefault = tap(e => e.preventDefault())
-
-const ENTER_KEY = 13
-const ESC_KEY = 27
+const fail = (s: string): empty => { throw new Error(s) }
+const qs = (s: string, el: Document): Element => el.querySelector(s) || fail(`${s} not found`)
 
 const appNode = qs('.todoapp', document)
 const appState = emptyApp
+const scheduler = newDefaultScheduler()
 
-const handleSubmit = ({ target }: As<SubmitEvent>) => {
-  const value: As<string> = target['new-todo'].value
-  if (!value) {
-    return id
-  }
+const [addAction, todoActions] = createHyperEventAdapter(scheduler)
 
-  target.reset()
-  return addTodo(value)
-}
+const updateFilter = map(handleFilterChange, hashchange(window))
 
-const add = map(handleSubmit, preventDefault(submit(appNode)))
-const updateFilter = map((e: As<HashChangeEvent>) => setFilter(e.newURL.replace(/^.*#/, '')), hashchange(window))
+const actions = mergeArray([todoActions, updateFilter])
 
-const actions = mergeArray([add, updateFilter])
+const stateUpdates = skipRepeats(scan(runAction, appState, actions))
+const viewUpdates = scan(updateView(addAction), appNode, stateUpdates)
 
-const stateUpdates = scan(runAction, appState, actions)
-const viewUpdates = scan(updateView, appNode, stateUpdates)
-
-runEffects(viewUpdates, newDefaultScheduler())
+runEffects(viewUpdates, scheduler)
