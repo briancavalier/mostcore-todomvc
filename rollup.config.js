@@ -10,6 +10,7 @@ export default {
     node(),
     flow(),
     babel({
+      babelrc: false,
       plugins: ['transform-object-rest-spread']
     }),
     uglify({}, minify)

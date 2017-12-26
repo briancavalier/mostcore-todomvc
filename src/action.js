@@ -11,7 +11,7 @@ type ClickEvent = DOMEvent<HTMLElement>
 type HashChangeEvent = { newURL: string } & Event
 
 const ENTER_KEY = 13
-const ESC_KEY = 27
+// const ESC_KEY = 27
 
 export type Action = App => App
 
@@ -28,7 +28,7 @@ export const handleAdd = (e: As<InputEvent>): Action => {
   if (e.keyCode !== ENTER_KEY || value.length === 0) {
     return id
   }
-  e.target.value = ""
+  e.target.value = ''
   return addTodo(value)
 }
 

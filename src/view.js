@@ -21,8 +21,8 @@ export const updateView = (addAction: Action => void) => (appNode: Element, appS
     ${renderFooter(addAction, appState.todos.length - count, count, appState)}`
 }
 
-export const renderTodoList = (addAction: Action => void, allCompleted: boolean, todos: Todo[]): Element => wire()
-  `<section class="main">
+export const renderTodoList = (addAction: Action => void, allCompleted: boolean, todos: Todo[]): Element =>
+  wire()`<section class="main">
     <input id="toggle-all" class="toggle-all" type="checkbox" checked=${allCompleted} onchange=${compose(addAction, handleToggleAll)}>
     <label for="toggle-all">Mark all as complete</label>
     <ul class="todo-list">
@@ -32,8 +32,8 @@ export const renderTodoList = (addAction: Action => void, allCompleted: boolean,
     </ul>
   </section>`
 
-export const renderTodo = (onComplete: Action => void, onRemove: Action => void) => ({ id, completed, description }: Todo): Element => wire()
-  `<li data-id="${id}" class="${ifCompleted(completed)}">
+export const renderTodo = (onComplete: Action => void, onRemove: Action => void) => ({ id, completed, description }: Todo): Element =>
+  wire()`<li data-id="${id}" class="${ifCompleted(completed)}">
     <div class="view">
       <input class="toggle" type="checkbox" checked=${completed} onchange=${onComplete}>
       <label>${description}</label>
@@ -42,15 +42,15 @@ export const renderTodo = (onComplete: Action => void, onRemove: Action => void)
     <input class="edit" value="${description}">
   </li>`
 
-export const renderFooter = (addAction: Action => void, remainingCount: number, completedCount: number, { todos, filter }: App): Element => wire()
-  `<footer class="footer" style="${todos.length === 0 ? 'display:none' : ''}">
+export const renderFooter = (addAction: Action => void, remainingCount: number, completedCount: number, { todos, filter }: App): Element =>
+  wire()`<footer class="footer" style="${todos.length === 0 ? 'display:none' : ''}">
     <!-- This should be 0 items left by default -->
     <span class="todo-count"><strong>${remainingCount}</strong> ${remainingCount === 1 ? 'item' : 'items'} left</span>
     <!-- Remove this if you don't implement routing -->
     <ul class="filters">
-      <li><a class="${ifSelected('/' === filter)}" href="#/">All</a><li>
-      <li><a class="${ifSelected('/active' === filter)}" href="#/active">Active</a><li>
-      <li><a class="${ifSelected('/completed' === filter)}" href="#/completed">Completed</a><li>
+      <li><a class="${ifSelected(filter === '/')}" href="#/">All</a><li>
+      <li><a class="${ifSelected(filter === '/active')}" href="#/active">Active</a><li>
+      <li><a class="${ifSelected(filter === '/completed')}" href="#/completed">Completed</a><li>
     </ul>
     <!-- Hidden if no completed items are left ↓ -->
     <button class="clear-completed" style="${completedCount > 0 ? '' : 'display:none'}" onclick="${compose(addAction, handleRemoveAllCompleted)}">Clear completed</button>

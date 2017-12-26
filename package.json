@@ -30,5 +30,17 @@
     "hyperhtml": "^2.4.3",
     "todomvc-app-css": "^2.1.0",
     "todomvc-common": "^1.0.4"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "flow"
+    ]
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "plugins": [
+      "flowtype"
+    ]
   }
 }
