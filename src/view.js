@@ -12,12 +12,20 @@ const ifSelected = maybeClass('selected')
 
 export const updateView = (addAction: Action => void) => (appNode: Element, appState: App): Element => {
   const count = completedCount(appState)
+  const todos = appState.todos.filter(t => {
+    switch (appState.filter) {
+      case '/': return true
+      case '/active': return t.completed
+      case '/completed': return !t.completed
+    }
+  })
+
   return bind(appNode)`
     <header class="header">
       <h1>todos</h1>
       <input class="new-todo" name="new-todo" placeholder="What needs to be done?" autofocus onkeypress="${compose(addAction, handleAdd)}">
     </header>
-    ${renderTodoList(addAction, appState.todos.length > 0 && count === appState.todos.length, appState.todos)}
+    ${renderTodoList(addAction, todos.length > 0 && count === todos.length, todos)}
     ${renderFooter(addAction, appState.todos.length - count, count, appState)}`
 }
 

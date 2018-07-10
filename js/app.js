@@ -24,11 +24,11 @@
     </ul>
     <!-- Hidden if no completed items are left ↓ -->
     <button class="clear-completed" style="${n>0?"":"display:none"}" onclick="${o(t,Cn)}">Clear completed</button>
-  </footer>`,Rn=((t,e)=>e.querySelector(t)||(t=>{throw new Error(t)})(`${t} not found`))(".todoapp",document),Dn={todos:[],focus:null,filter:"/",nextId:0},Pn=new p(C(),new d),[Bn,Hn]=(t=>{const e=new St(it);return[n=>e.event(t.currentTime(),n),e]})(Pn);var qn,In;const zn=Pt(Hn,Dt(t=>(t=>e=>Ht({},e,{filter:t}))(t.newURL.replace(/^.*#/,"")),(qn=window,void 0===In&&(In=!1),function(t,e,n){return void 0===n&&(n=!1),new Bt(t,e,n)}("hashchange",qn,In)))),Fn=(Zn=Rt((t,e)=>e(t),Dn,zn),Et($t,Zn));var Zn;Mt(Rt((t=>(e,n)=>{const r=(({todos:t})=>t.reduce(qt,0))(n);return xn(e)`
+  </footer>`,Rn=((t,e)=>e.querySelector(t)||(t=>{throw new Error(t)})(`${t} not found`))(".todoapp",document),Dn={todos:[],focus:null,filter:"/",nextId:0},Pn=new p(C(),new d),[Bn,Hn]=(t=>{const e=new St(it);return[n=>e.event(t.currentTime(),n),e]})(Pn);var qn,In;const zn=Pt(Hn,Dt(t=>(t=>e=>Ht({},e,{filter:t}))(t.newURL.replace(/^.*#/,"")),(qn=window,void 0===In&&(In=!1),function(t,e,n){return void 0===n&&(n=!1),new Bt(t,e,n)}("hashchange",qn,In)))),Fn=(Zn=Rt((t,e)=>e(t),Dn,zn),Et($t,Zn));var Zn;Mt(Rt((t=>(e,n)=>{const r=(({todos:t})=>t.reduce(qt,0))(n),i=n.todos.filter(t=>{switch(n.filter){case"/":return!0;case"/active":return t.completed;case"/completed":return!t.completed}});return xn(e)`
     <header class="header">
       <h1>todos</h1>
       <input class="new-todo" name="new-todo" placeholder="What needs to be done?" autofocus onkeypress="${o(t,Tn)}">
     </header>
-    ${Sn(t,n.todos.length>0&&r===n.todos.length,n.todos)}
+    ${Sn(t,i.length>0&&r===i.length,i)}
     ${Mn(t,n.todos.length-r,r,n)}`})(Bn),Rn,Fn),Pn)}();
 //# sourceMappingURL=app.js.map
