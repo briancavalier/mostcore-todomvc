@@ -1,11 +1,11 @@
 // @flow
+/* global HTMLElement, HTMLInputElement, Event, $Call */
 import { id } from '@most/prelude'
 import { type App, type Id, addTodo, updateCompleted, removeTodo, updateAllCompleted, removeAllCompleted, setFilter } from './model'
 
 type As<B, A = *> = $Call<A, A => B>
 
 type DOMEvent<E> = { target: E } & Event
-type SubmitEvent = DOMEvent<HTMLFormElement>
 type InputEvent = DOMEvent<HTMLInputElement>
 type ClickEvent = DOMEvent<HTMLElement>
 type HashChangeEvent = { newURL: string } & Event

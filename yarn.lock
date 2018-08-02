@@ -92,21 +92,21 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@most/core@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@most/core/-/core-1.3.0.tgz#04119bdc711b0e1e0481652456f5d6ae2d4a2e38"
+"@most/core@^1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@most/core/-/core-1.3.2.tgz#0b2b489ef84dd61075150037afd794e258f09f8c"
   dependencies:
-    "@most/disposable" "^1.2.0"
-    "@most/prelude" "^1.7.1"
-    "@most/scheduler" "^1.2.0"
-    "@most/types" "^1.0.0"
+    "@most/disposable" "^1.2.1"
+    "@most/prelude" "^1.7.2"
+    "@most/scheduler" "^1.2.1"
+    "@most/types" "^1.0.1"
 
-"@most/disposable@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@most/disposable/-/disposable-1.2.0.tgz#cd71368be72cac45420b4ed71f654e5699fd1af0"
+"@most/disposable@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@most/disposable/-/disposable-1.2.1.tgz#c72d7de3d98a6662916285e4516c713a95b94fa3"
   dependencies:
-    "@most/prelude" "^1.7.1"
-    "@most/types" "^1.0.0"
+    "@most/prelude" "^1.7.2"
+    "@most/types" "^1.0.1"
 
 "@most/dom-event@^2.0.0":
   version "2.0.0"
@@ -119,9 +119,9 @@
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/@most/prelude/-/prelude-1.7.0.tgz#0956ed464ad03e7fc95143eac0c6dd028498d975"
 
-"@most/prelude@^1.7.1":
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/@most/prelude/-/prelude-1.7.1.tgz#7c70ab6a68bb20481db51ebfbba23fceb502d239"
+"@most/prelude@^1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@most/prelude/-/prelude-1.7.2.tgz#be4ed406518d4c8c220e45c39fa7251365425b73"
 
 "@most/scheduler@^0.13.0":
   version "0.13.1"
@@ -130,20 +130,20 @@
     "@most/prelude" "^1.6.4"
     "@most/types" "^0.11.1"
 
-"@most/scheduler@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@most/scheduler/-/scheduler-1.2.0.tgz#3bc87beb68f53b08debcbfd75ac1e03ea484e641"
+"@most/scheduler@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@most/scheduler/-/scheduler-1.2.1.tgz#f0f5b0af2e28908ac1a10907afe3648b71e10d36"
   dependencies:
-    "@most/prelude" "^1.7.1"
-    "@most/types" "^1.0.0"
+    "@most/prelude" "^1.7.2"
+    "@most/types" "^1.0.1"
 
 "@most/types@^0.11.1":
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/@most/types/-/types-0.11.1.tgz#5e305e0e346c5b01f1ebdeec4c1dfa5b189b5f9d"
 
-"@most/types@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@most/types/-/types-1.0.0.tgz#5c301d2437342a1b82e38463fdb94e1bafe2c6d9"
+"@most/types@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@most/types/-/types-1.0.1.tgz#8691580d1f3bf569b91d48f6688be9ad26dfc86c"
 
 "@types/estree@0.0.39":
   version "0.0.39"
@@ -359,15 +359,15 @@ babel-core@^6.26.0:
     slash "^1.0.0"
     source-map "^0.5.6"
 
-babel-eslint@^8.2.5:
-  version "8.2.5"
-  resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-8.2.5.tgz#dc2331c259d36782aa189da510c43dedd5adc7a3"
+babel-eslint@^8.2.6:
+  version "8.2.6"
+  resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-8.2.6.tgz#6270d0c73205628067c0f7ae1693a9e797acefd9"
   dependencies:
     "@babel/code-frame" "7.0.0-beta.44"
     "@babel/traverse" "7.0.0-beta.44"
     "@babel/types" "7.0.0-beta.44"
     babylon "7.0.0-beta.44"
-    eslint-scope "~3.7.1"
+    eslint-scope "3.7.1"
     eslint-visitor-keys "^1.0.0"
 
 babel-generator@^6.26.0:
@@ -1303,7 +1303,7 @@ eslint-plugin-standard@~3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-standard/-/eslint-plugin-standard-3.0.1.tgz#34d0c915b45edc6f010393c7eef3823b08565cf2"
 
-eslint-scope@^3.7.1, eslint-scope@~3.7.1:
+eslint-scope@3.7.1, eslint-scope@^3.7.1:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-3.7.1.tgz#3d63c3edfda02e06e01a452ad88caacc7cdcb6e8"
   dependencies:
@@ -1495,9 +1495,9 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
-flow-bin@^0.76.0:
-  version "0.76.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.76.0.tgz#eb00036991c3abc106743fcbc7ee321f02aa4faa"
+flow-bin@^0.77.0:
+  version "0.77.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.77.0.tgz#4e5c93929f289a0c28e08fb361a9734944a11297"
 
 flow-remove-types@^1.1.0:
   version "1.2.3"
@@ -1709,11 +1709,11 @@ http-signature@~1.1.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
-hyperhtml@^2.11.1:
-  version "2.11.1"
-  resolved "https://registry.yarnpkg.com/hyperhtml/-/hyperhtml-2.11.1.tgz#787b04ef8e34b32ad2c79acc4c61e58b0ea684a5"
+hyperhtml@^2.13.0:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/hyperhtml/-/hyperhtml-2.13.0.tgz#6eb43fc3dfdd0775374d0b80bb990b05aeba2213"
   dependencies:
-    lightercollective "^0.0.3"
+    lightercollective "^0.1.0"
 
 iconv-lite@^0.4.17:
   version "0.4.23"
@@ -2020,9 +2020,9 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-lightercollective@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/lightercollective/-/lightercollective-0.0.3.tgz#c58f01fde36f4d9432eda354c635a192fc291b2b"
+lightercollective@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/lightercollective/-/lightercollective-0.1.0.tgz#70df102c530dcb8d0ccabfe6175a8d00d5f61300"
 
 load-json-file@^2.0.0:
   version "2.0.0"
@@ -2628,9 +2628,9 @@ rollup-pluginutils@^1.5.0, rollup-pluginutils@^1.5.1:
     estree-walker "^0.2.1"
     minimatch "^3.0.2"
 
-rollup@^0.62.0:
-  version "0.62.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.62.0.tgz#4ca8b3c9582195dc9341ff8a1375f58319b95bfc"
+rollup@^0.63.5:
+  version "0.63.5"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.63.5.tgz#5543eecac9a1b83b7e1be598b5be84c9c0a089db"
   dependencies:
     "@types/estree" "0.0.39"
     "@types/node" "*"

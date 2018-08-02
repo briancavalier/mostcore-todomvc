@@ -3,6 +3,7 @@
 // 1. localStorage
 // 2. todo editing
 // 3. comments/walkthrough
+/* global Document, Element */
 import { skipRepeats, map, merge, scan, runEffects } from '@most/core'
 import { newDefaultScheduler } from '@most/scheduler'
 import { hashchange } from '@most/dom-event'

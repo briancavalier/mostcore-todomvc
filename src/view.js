@@ -1,32 +1,37 @@
 // @flow
+/* global Element */
 import { compose } from '@most/prelude'
 import { bind, wire } from 'hyperhtml'
-import { type App, type Filter, type Todo, completedCount } from './model'
+import { type App, type Todo, completedCount } from './model'
 import { type Action, handleAdd, handleToggleAll, handleComplete, handleRemove, handleRemoveAllCompleted } from './action'
 
 const maybeClass = (className: string) => (condition: bool): string =>
   condition ? className : ''
-
 const ifCompleted = maybeClass('completed')
 const ifSelected = maybeClass('selected')
 
-export const updateView = (addAction: Action => void) => (appNode: Element, appState: App): Element => {
-  const count = completedCount(appState)
-  const todos = appState.todos.filter(t => {
-    switch (appState.filter) {
+const filterTodos = ({ filter, todos }: App): Todo[] =>
+  todos.filter(t => {
+    switch (filter) {
       case '/': return true
-      case '/active': return t.completed
-      case '/completed': return !t.completed
+      case '/active': return !t.completed
+      case '/completed': return t.completed
     }
   })
+
+export const updateView = (addAction: Action => void) => (appNode: Element, appState: App): Element => {
+  const completed = completedCount(appState)
+  const todos = appState.todos
+  const filtered = filterTodos(appState)
+  const remaining = todos.length - completed
 
   return bind(appNode)`
     <header class="header">
       <h1>todos</h1>
       <input class="new-todo" name="new-todo" placeholder="What needs to be done?" autofocus onkeypress="${compose(addAction, handleAdd)}">
     </header>
-    ${renderTodoList(addAction, todos.length > 0 && count === todos.length, todos)}
-    ${renderFooter(addAction, appState.todos.length - count, count, appState)}`
+    ${renderTodoList(addAction, todos.length > 0 && remaining === 0, filtered)}
+    ${renderFooter(addAction, remaining, completed, appState)}`
 }
 
 export const renderTodoList = (addAction: Action => void, allCompleted: boolean, todos: Todo[]): Element =>
