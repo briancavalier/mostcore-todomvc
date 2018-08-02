@@ -1,24 +1,54 @@
 import node from 'rollup-plugin-node-resolve'
-import flow from 'rollup-plugin-flow'
 import babel from 'rollup-plugin-babel'
-import { uglify } from 'rollup-plugin-uglify'
-import { minify } from 'uglify-es'
+import commonjs from 'rollup-plugin-commonjs'
+import replace from 'rollup-plugin-replace'
+// import { uglify } from 'rollup-plugin-uglify'
+// import { minify } from 'uglify-es'
 import pkg from './package.json'
 
 export default {
   plugins: [
-    node(),
-    flow(),
+    node({
+      browser: true,
+      main: true
+    }),
+    // flow(),
+    commonjs({
+      namedExports: {
+        'node_modules/react/index.js': ['createElement'],
+        'node_modules/react-dom/index.js': ['render']
+      },
+      exclude: 'node_modules/process-es6/**',
+      include: [
+        'node_modules/create-react-class/**',
+        'node_modules/fbjs/**',
+        'node_modules/object-assign/**',
+        'node_modules/react/**',
+        'node_modules/react-dom/**',
+        'node_modules/prop-types/**'
+      ]
+    }),
     babel({
       babelrc: false,
+      // exclude: 'node_modules/**',
+      presets: ['es2015-rollup', 'flow', 'react'],
       plugins: ['transform-object-rest-spread']
     }),
-    uglify({}, minify)
+    replace({ 'process.env.NODE_ENV': JSON.stringify('development') })
+    // uglify({}, minify)
   ],
+  // external: [
+  //   'react',
+  //   'react-dom'
+  // ],
   input: 'src/index.js',
   output: {
     file: pkg.main,
     format: 'iife',
     sourcemap: true
+    // globals: {
+    //   'react': 'React',
+    //   'react-dom': 'ReactDOM'
+    // }
   }
 }

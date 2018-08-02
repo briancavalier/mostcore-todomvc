@@ -2,16 +2,16 @@
 // TODO:
 // 1. localStorage
 // 2. todo editing
-// 3. comments/walkthrough
 /* global Document, Element */
-import { skipRepeats, map, merge, scan, runEffects } from '@most/core'
+import { skipRepeats, map, merge, scan, tap, runEffects } from '@most/core'
 import { newDefaultScheduler } from '@most/scheduler'
 import { hashchange } from '@most/dom-event'
 
 import { emptyApp } from './model'
-import { updateView } from './view'
+import { View } from './view.jsx'
 import { handleFilterChange, runAction } from './action'
-import { createHyperEventAdapter } from './hyperEventAdapter'
+import { createEventAdapter } from './eventAdapter'
+import * as ReactDOM from 'react-dom'
 
 const fail = (s: string): empty => { throw new Error(s) }
 const qs = (s: string, el: Document): Element =>
@@ -21,13 +21,13 @@ const appNode = qs('.todoapp', document)
 const appState = emptyApp
 const scheduler = newDefaultScheduler()
 
-const [addAction, todoActions] = createHyperEventAdapter(scheduler)
+const [addAction, todoActions] = createEventAdapter(scheduler)
 
 const updateFilter = map(handleFilterChange, hashchange(window))
 
 const actions = merge(todoActions, updateFilter)
 
 const stateUpdates = skipRepeats(scan(runAction, appState, actions))
-const viewUpdates = scan(updateView(addAction), appNode, stateUpdates)
+const viewUpdates = tap(rel => ReactDOM.render(rel, appNode), map(View(addAction), stateUpdates))
 
 runEffects(viewUpdates, scheduler)

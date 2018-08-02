@@ -10,22 +10,17 @@ type InputEvent = DOMEvent<HTMLInputElement>
 type ClickEvent = DOMEvent<HTMLElement>
 type HashChangeEvent = { newURL: string } & Event
 
-const ENTER_KEY = 13
-// const ESC_KEY = 27
+const ENTER_KEY = 'Enter'
+// const ESC_KEY = 'Escape'
 
 export type Action = App => App
 
 export const runAction = (app: App, action: Action): App =>
   action(app)
 
-const findId = (el: HTMLElement): Id => {
-  const todoEl = el.closest('[data-id]')
-  return todoEl instanceof HTMLElement ? Number(todoEl.dataset.id) : -1
-}
-
 export const handleAdd = (e: As<InputEvent>): Action => {
   const value = e.target.value.trim()
-  if (e.keyCode !== ENTER_KEY || value.length === 0) {
+  if (e.key !== ENTER_KEY || value.length === 0) {
     return id
   }
   e.target.value = ''
@@ -35,11 +30,11 @@ export const handleAdd = (e: As<InputEvent>): Action => {
 export const handleToggleAll = (e: As<InputEvent>): Action =>
   updateAllCompleted(e.target.checked)
 
-export const handleComplete = (e: As<InputEvent>): Action =>
-  updateCompleted(e.target.checked, findId(e.target))
+export const handleComplete = (id: Id) => (e: As<InputEvent>): Action =>
+  updateCompleted(e.target.checked, id)
 
-export const handleRemove = (e: As<ClickEvent>): Action =>
-  removeTodo(findId(e.target))
+export const handleRemove = (id: Id) => (e: As<ClickEvent>): Action =>
+  removeTodo(id)
 
 export const handleRemoveAllCompleted = (e: As<InputEvent>): Action =>
   removeAllCompleted
