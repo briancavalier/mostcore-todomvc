@@ -1,7 +1,7 @@
 // @flow
 /* global HTMLElement, HTMLInputElement, Event, $Call */
 import { id } from '@most/prelude'
-import { type App, type Id, addTodo, updateCompleted, removeTodo, updateAllCompleted, removeAllCompleted, setFilter } from './model'
+import { type App, type Todo, addTodo, updateCompleted, removeTodo, updateAllCompleted, removeAllCompleted, setFilter } from './model'
 
 type As<B, A = *> = $Call<A, A => B>
 
@@ -30,10 +30,10 @@ export const handleAdd = (e: As<InputEvent>): Action => {
 export const handleToggleAll = (e: As<InputEvent>): Action =>
   updateAllCompleted(e.target.checked)
 
-export const handleComplete = (id: Id) => (e: As<InputEvent>): Action =>
+export const handleComplete = ({ id }: Todo) => (e: As<InputEvent>): Action =>
   updateCompleted(e.target.checked, id)
 
-export const handleRemove = (id: Id) => (e: As<ClickEvent>): Action =>
+export const handleRemove = ({ id }: Todo) => (e: As<ClickEvent>): Action =>
   removeTodo(id)
 
 export const handleRemoveAllCompleted = (e: As<InputEvent>): Action =>

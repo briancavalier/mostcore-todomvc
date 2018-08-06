@@ -5351,13 +5351,15 @@
     return updateAllCompleted(e.target.checked);
   };
 
-  var handleComplete = function handleComplete(id$$1) {
+  var handleComplete = function handleComplete(_ref) {
+    var id$$1 = _ref.id;
     return function (e) {
       return updateCompleted(e.target.checked, id$$1);
     };
   };
 
-  var handleRemove = function handleRemove(id$$1) {
+  var handleRemove = function handleRemove(_ref2) {
+    var id$$1 = _ref2.id;
     return function (e) {
       return removeTodo(id$$1);
     };
@@ -5414,20 +5416,25 @@
           ),
           react_1('input', { className: 'new-todo', name: 'new-todo', placeholder: 'What needs to be done?', autoComplete: 'off', autoFocus: true, onKeyPress: compose(addAction, handleAdd) })
         ),
-        react_1(TodoList, { addAction: addAction, allCompleted: todos.length > 0 && remaining === 0, todos: filtered }),
+        react_1(
+          TodoList,
+          { addAction: addAction, allCompleted: todos.length > 0 && remaining === 0 },
+          filtered.map(function (todo) {
+            return react_1(TodoItem, { key: todo.id,
+              addAction: addAction,
+              todo: todo });
+          })
+        ),
         todos.length > 0 && react_1(Footer, { addAction: addAction, remaining: remaining, completed: completed, filter: appState.filter })
       );
     };
   };
 
-  var TodoList = function TodoList(_ref2) {
-    var addAction = _ref2.addAction,
-        allCompleted = _ref2.allCompleted,
-        todos = _ref2.todos;
+  var TodoList = function TodoList(props) {
     return react_1(
       'section',
       { className: 'main' },
-      react_1('input', { id: 'toggle-all', className: 'toggle-all', type: 'checkbox', checked: allCompleted, onChange: compose(addAction, handleToggleAll) }),
+      react_1('input', { id: 'toggle-all', className: 'toggle-all', type: 'checkbox', checked: props.allCompleted, onChange: compose(props.addAction, handleToggleAll) }),
       react_1(
         'label',
         { htmlFor: 'toggle-all' },
@@ -5436,44 +5443,37 @@
       react_1(
         'ul',
         { className: 'todo-list' },
-        todos.map(function (todo) {
-          return react_1(TodoItem, { key: todo.id,
-            addAction: addAction,
-            todo: todo });
-        })
+        props.children
       )
     );
   };
 
-  var TodoItem = function TodoItem(_ref3) {
-    var addAction = _ref3.addAction,
-        _ref3$todo = _ref3.todo,
-        id$$1 = _ref3$todo.id,
-        completed = _ref3$todo.completed,
-        description = _ref3$todo.description;
+  var TodoItem = function TodoItem(_ref2) {
+    var addAction = _ref2.addAction,
+        todo = _ref2.todo;
     return react_1(
       'li',
-      { className: ifCompleted(completed) },
+      { className: ifCompleted(todo.completed) },
       react_1(
         'div',
         { className: 'view' },
-        react_1('input', { className: 'toggle', type: 'checkbox', checked: completed, onChange: compose(addAction, handleComplete(id$$1)) }),
+        react_1('input', { className: 'toggle', type: 'checkbox', checked: todo.completed, onChange: compose(addAction, handleComplete(todo)) }),
         react_1(
           'label',
           null,
-          description
+          todo.description
         ),
-        react_1('button', { className: 'destroy', onClick: compose(addAction, handleRemove(id$$1)) })
+        react_1('button', { className: 'destroy', onClick: compose(addAction, handleRemove(todo)) })
       ),
-      react_1('input', { className: 'edit', value: description })
+      react_1('input', { className: 'edit', value: todo.description })
     );
   };
 
-  var Footer = function Footer(_ref4) {
-    var addAction = _ref4.addAction,
-        remaining = _ref4.remaining,
-        completed = _ref4.completed,
-        filter = _ref4.filter;
+  var Footer = function Footer(_ref3) {
+    var addAction = _ref3.addAction,
+        remaining = _ref3.remaining,
+        completed = _ref3.completed,
+        filter = _ref3.filter;
     return react_1(
       'footer',
       { className: 'footer' },

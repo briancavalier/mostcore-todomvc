@@ -1,8 +1,8 @@
 // @flow
 import { compose } from '@most/prelude'
 import * as React from 'react'
-import { type App, type Filter, type Todo, completedCount } from './model'
-import { type Action, handleAdd, handleToggleAll, handleComplete, handleRemove, handleRemoveAllCompleted } from './action'
+import { type Action, type App, type Filter, type Todo, completedCount } from './model'
+import { handleAdd, handleToggleAll, handleComplete, handleRemove, handleRemoveAllCompleted } from './action'
 
 const maybeClass = (className: string) => (condition: bool): string =>
   condition ? className : ''
@@ -29,26 +29,28 @@ export const View = (addAction: Action => void) => (appState: App): React.Elemen
       <h1>todos</h1>
       <input className='new-todo' name='new-todo' placeholder='What needs to be done?' autoComplete='off' autoFocus onKeyPress={compose(addAction, handleAdd)} />
     </header>
-    <TodoList addAction={addAction} allCompleted={todos.length > 0 && remaining === 0} todos={filtered} />
-    {todos.length > 0 && <Footer addAction={addAction} remaining={remaining} completed={completed} filter={appState.filter} />}</div>
-}
-
-type TodoListProps = {
-  addAction: Action => void,
-  allCompleted: boolean,
-  todos: Todo[]
-}
-
-export const TodoList = ({ addAction, allCompleted, todos }: TodoListProps): React.Element<*> =>
-  <section className='main'>
-    <input id='toggle-all' className='toggle-all' type='checkbox' checked={allCompleted} onChange={compose(addAction, handleToggleAll)} />
-    <label htmlFor='toggle-all'>Mark all as complete</label>
-    <ul className='todo-list'>
-      {todos.map(todo =>
+    <TodoList addAction={addAction} allCompleted={todos.length > 0 && remaining === 0}>
+      {filtered.map(todo =>
         <TodoItem key={todo.id}
           addAction={addAction}
           todo={todo} />
       )}
+    </TodoList>
+    {todos.length > 0 && <Footer addAction={addAction} remaining={remaining} completed={completed} filter={appState.filter} />}</div>
+}
+
+type TodoListProps = {
+  children?: React.Node,
+  addAction: Action => void,
+  allCompleted: boolean
+}
+
+export const TodoList = (props: TodoListProps): React.Element<*> =>
+  <section className='main'>
+    <input id='toggle-all' className='toggle-all' type='checkbox' checked={props.allCompleted} onChange={compose(props.addAction, handleToggleAll)} />
+    <label htmlFor='toggle-all'>Mark all as complete</label>
+    <ul className='todo-list'>
+      {props.children}
     </ul>
   </section>
 
@@ -57,14 +59,14 @@ type TodoProps = {
   todo: Todo
 }
 
-export const TodoItem = ({ addAction, todo: { id, completed, description } }: TodoProps): React.Element<*> =>
-  <li className={ifCompleted(completed)}>
+export const TodoItem = ({ addAction, todo }: TodoProps): React.Element<*> =>
+  <li className={ifCompleted(todo.completed)}>
     <div className='view'>
-      <input className='toggle' type='checkbox' checked={completed} onChange={compose(addAction, handleComplete(id))} />
-      <label>{description}</label>
-      <button className='destroy' onClick={compose(addAction, handleRemove(id))} />
+      <input className='toggle' type='checkbox' checked={todo.completed} onChange={compose(addAction, handleComplete(todo))} />
+      <label>{todo.description}</label>
+      <button className='destroy' onClick={compose(addAction, handleRemove(todo))} />
     </div>
-    <input className='edit' value={description} />
+    <input className='edit' value={todo.description} />
   </li>
 
 type FooterProps = {
