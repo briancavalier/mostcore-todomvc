@@ -1,8 +1,8 @@
 // @flow
 import { compose } from '@most/prelude'
 import * as React from 'react'
-import { type Action, type App, type Filter, type Todo, completedCount } from './model'
-import { handleAdd, handleToggleAll, handleComplete, handleRemove, handleRemoveAllCompleted } from './action'
+import { type App, type Filter, type Todo, completedCount } from './model'
+import { type Action, handleAdd, handleToggleAll, handleComplete, handleRemove, handleRemoveAllCompleted } from './action'
 
 const maybeClass = (className: string) => (condition: bool): string =>
   condition ? className : ''

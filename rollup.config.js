@@ -29,8 +29,14 @@ export default {
     }),
     babel({
       babelrc: false,
-      presets: ['es2015-rollup', 'flow', 'react'],
-      plugins: ['transform-object-rest-spread']
+      presets: [
+        ['@babel/env', { modules: false }],
+        '@babel/flow',
+        '@babel/react'
+      ],
+      plugins: [
+        '@babel/proposal-object-rest-spread'
+      ]
     }),
     replace({ 'process.env.NODE_ENV': JSON.stringify('development') }),
     uglify({}, minify)
