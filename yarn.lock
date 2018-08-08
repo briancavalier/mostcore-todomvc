@@ -2686,6 +2686,14 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
+most-product@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/most-product/-/most-product-1.1.1.tgz#c9d33708da46b9694f8b60fa717434026de1e6c9"
+  dependencies:
+    "@most/core" "^1.3.2"
+    "@most/prelude" "^1.7.2"
+    "@most/types" "^1.0.1"
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"

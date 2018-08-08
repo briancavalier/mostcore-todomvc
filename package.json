@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "@most/dom-event": "^2.0.0",
+    "most-product": "^1.1.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "todomvc-app-css": "^2.1.2",
