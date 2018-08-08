@@ -2,7 +2,8 @@
 import { compose } from '@most/prelude'
 import * as React from 'react'
 import { type App, type Filter, type Todo, completedCount } from './model'
-import { type Action, handleAdd, handleToggleAll, handleComplete, handleRemove, handleRemoveAllCompleted } from './action'
+import type { Add, Complete, Input, Remove, RemoveAllCompleted, ToggleAll } from './action'
+import { handleAdd, handleInput, handleToggleAll, handleComplete, handleRemove, handleRemoveAllCompleted } from './action'
 
 const maybeClass = (className: string) => (condition: bool): string =>
   condition ? className : ''
@@ -18,7 +19,7 @@ const filterTodos = ({ filter, todos }: App): Todo[] =>
     }
   })
 
-export const View = (addAction: Action => void) => (appState: App): React.Element<*> => {
+export const View = (addAction: * => void) => (appState: App): React.Element<*> => {
   const completed = completedCount(appState.todos)
   const todos = appState.todos
   const filtered = filterTodos(appState)
@@ -27,13 +28,14 @@ export const View = (addAction: Action => void) => (appState: App): React.Elemen
   return <div>
     <header className='header'>
       <h1>todos</h1>
-      <input className='new-todo' name='new-todo' placeholder='What needs to be done?' autoComplete='off' autoFocus onKeyPress={compose(addAction, handleAdd)} />
+      <input className='new-todo' name='new-todo' placeholder='What needs to be done?' autoComplete='off' autoFocus
+        value={appState.input}
+        onKeyPress={compose(addAction, handleAdd)}
+        onInput={compose(addAction, handleInput)} />
     </header>
     <TodoList addAction={addAction} allCompleted={todos.length > 0 && remaining === 0}>
       {filtered.map(todo =>
-        <TodoItem key={todo.id}
-          addAction={addAction}
-          todo={todo} />
+        <TodoItem key={todo.id} todo={todo} addAction={addAction} />
       )}
     </TodoList>
     {todos.length > 0 && <Footer addAction={addAction} remaining={remaining} completed={completed} filter={appState.filter} />}</div>
@@ -41,7 +43,7 @@ export const View = (addAction: Action => void) => (appState: App): React.Elemen
 
 type TodoListProps = {
   children?: React.Node,
-  addAction: Action => void,
+  addAction: ToggleAll => void,
   allCompleted: boolean
 }
 
@@ -55,7 +57,7 @@ export const TodoList = (props: TodoListProps): React.Element<*> =>
   </section>
 
 type TodoProps = {
-  addAction: Action => void,
+  addAction: (Complete | Remove) => void,
   todo: Todo
 }
 
@@ -70,7 +72,7 @@ export const TodoItem = ({ addAction, todo }: TodoProps): React.Element<*> =>
   </li>
 
 type FooterProps = {
-  addAction: Action => void,
+  addAction: RemoveAllCompleted => void,
   remaining: number,
   completed: number,
   filter: Filter

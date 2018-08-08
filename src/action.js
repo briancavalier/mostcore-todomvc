@@ -12,15 +12,18 @@ type HashChangeEvent = { newURL: string } & Event
 const ENTER_KEY = 'Enter'
 // const ESC_KEY = 'Escape'
 
+export type Input = { action: 'input', input: string }
+
+export const handleInput = (e: As<InputEvent>): Input =>
+  ({ action: 'input', input: e.target.value })
+
 export type Add = { action: 'add', description: string }
 
-export const handleAdd = (e: As<InputEvent>): ?Add => {
+export const handleAdd = (e: As<InputEvent>): Add | Input => {
   const description = e.target.value.trim()
-  if (e.key !== ENTER_KEY || description.length === 0) {
-    return undefined
-  }
-  e.target.value = ''
-  return { action: 'add', description }
+  return e.key === ENTER_KEY && description.length > 0
+    ? { action: 'add', description }
+    : { action: 'input', input: description }
 }
 
 export type ToggleAll = { action: 'toggleAll', completed: boolean }

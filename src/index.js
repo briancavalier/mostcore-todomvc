@@ -9,7 +9,8 @@ import { hashchange } from '@most/dom-event'
 
 import { emptyApp } from './model'
 import { View } from './view.jsx'
-import { handleFilterChange, runAction } from './action'
+import { handleFilterChange } from './action'
+import { interpretTodos } from './interpret'
 import { createEventAdapter } from './eventAdapter'
 import * as ReactDOM from 'react-dom'
 
@@ -27,7 +28,7 @@ const updateFilter = map(handleFilterChange, hashchange(window))
 
 const actions = merge(todoActions, updateFilter)
 
-const stateUpdates = skipRepeats(scan(runAction, appState, actions))
+const stateUpdates = skipRepeats(scan(interpretTodos, appState, actions))
 const viewUpdates = tap(rel => ReactDOM.render(rel, appNode), map(View(addAction), stateUpdates))
 
 runEffects(viewUpdates, scheduler)
