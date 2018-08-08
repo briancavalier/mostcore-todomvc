@@ -19,7 +19,7 @@ const filterTodos = ({ filter, todos }: App): Todo[] =>
   })
 
 export const View = (addAction: Action => void) => (appState: App): React.Element<*> => {
-  const completed = completedCount(appState)
+  const completed = completedCount(appState.todos)
   const todos = appState.todos
   const filtered = filterTodos(appState)
   const remaining = todos.length - completed

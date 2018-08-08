@@ -1,7 +1,6 @@
 // @flow
 /* global HTMLElement, HTMLInputElement, Event, $Call */
-import { id } from '@most/prelude'
-import { type App, type Todo, addTodo, updateCompleted, removeTodo, updateAllCompleted, removeAllCompleted, setFilter } from './model'
+import { type Filter, type Todo } from './model'
 
 type As<B, A = *> = $Call<A, A => B>
 
@@ -13,31 +12,38 @@ type HashChangeEvent = { newURL: string } & Event
 const ENTER_KEY = 'Enter'
 // const ESC_KEY = 'Escape'
 
-export type Action = App => App
+export type Add = { action: 'add', description: string }
 
-export const runAction = (app: App, action: Action): App =>
-  action(app)
-
-export const handleAdd = (e: As<InputEvent>): Action => {
-  const value = e.target.value.trim()
-  if (e.key !== ENTER_KEY || value.length === 0) {
-    return id
+export const handleAdd = (e: As<InputEvent>): ?Add => {
+  const description = e.target.value.trim()
+  if (e.key !== ENTER_KEY || description.length === 0) {
+    return undefined
   }
   e.target.value = ''
-  return addTodo(value)
+  return { action: 'add', description }
 }
 
-export const handleToggleAll = (e: As<InputEvent>): Action =>
-  updateAllCompleted(e.target.checked)
+export type ToggleAll = { action: 'toggleAll', completed: boolean }
 
-export const handleComplete = ({ id }: Todo) => (e: As<InputEvent>): Action =>
-  updateCompleted(e.target.checked, id)
+export const handleToggleAll = (e: As<InputEvent>): ToggleAll =>
+  ({ action: 'toggleAll', completed: e.target.checked })
 
-export const handleRemove = ({ id }: Todo) => (e: As<ClickEvent>): Action =>
-  removeTodo(id)
+export type Complete = { action: 'complete', todo: Todo, completed: boolean }
 
-export const handleRemoveAllCompleted = (e: As<InputEvent>): Action =>
-  removeAllCompleted
+export const handleComplete = (todo: Todo) => (e: As<InputEvent>): Complete =>
+  ({ action: 'complete', todo, completed: e.target.checked })
 
-export const handleFilterChange = (e: As<HashChangeEvent>): Action =>
-  setFilter(e.newURL.replace(/^.*#/, ''))
+export type Remove = { action: 'remove', todo: Todo }
+
+export const handleRemove = (todo: Todo) => (e: As<ClickEvent>): Remove =>
+  ({ action: 'remove', todo })
+
+export type RemoveAllCompleted = { action: 'removeAllCompleted' }
+
+export const handleRemoveAllCompleted = (e: As<InputEvent>): RemoveAllCompleted =>
+  ({ action: 'removeAllCompleted' })
+
+export type FilterChange = { action: 'filterChange', filter: Filter }
+
+export const handleFilterChange = (e: As<HashChangeEvent>): FilterChange =>
+  ({ action: 'filterChange', filter: e.newURL.replace(/^.*#/, '') })
