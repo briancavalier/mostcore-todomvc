@@ -33,6 +33,7 @@
     "uglify-es": "^3.3.9"
   },
   "dependencies": {
+    "@briancavalier/most-adapter": "^1.0.0",
     "@most/dom-event": "^2.0.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
