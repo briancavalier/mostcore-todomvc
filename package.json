@@ -7,7 +7,9 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build --public-url . index.html",
-    "lint": "standard --fix src/*.js"
+    "test": "yarn lint && yarn typecheck",
+    "lint": "standard --fix src/*.js",
+    "typecheck": "flow check"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
