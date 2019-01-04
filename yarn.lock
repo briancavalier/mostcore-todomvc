@@ -629,10 +629,10 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@briancavalier/most-adapter@^1.0.0":
+"@most/adapter@^1.0.0":
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@briancavalier/most-adapter/-/most-adapter-1.0.0.tgz#d0f3367aa9e47cb63e0075b4ae60e57ad1d862ed"
-  integrity sha512-KwjuaxptQwB72cZOCc4IkcIjKgabqc0HBa8Feker5oE1vaU7/UBL1J1qDdeQ/qsQ/EIy+LHM9mV1OQE1JWmrvg==
+  resolved "https://registry.yarnpkg.com/@most/adapter/-/adapter-1.0.0.tgz#075703c72ec1131856ea33e4e29171311fc094af"
+  integrity sha512-+ECkLCTgKqc+uFK7q/fp2elaZahNRS1Tjz0XAu5QOiMynxJt8qN8LR+fuSoRZdhzQ0/+4nWf44X/x2fWUKe8fQ==
   dependencies:
     "@most/types" "^1.0.1"
 

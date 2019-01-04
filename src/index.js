@@ -6,7 +6,7 @@
 import { skipRepeats, map, merge, scan, tap, runEffects } from '@most/core'
 import { newDefaultScheduler } from '@most/scheduler'
 import { hashchange } from '@most/dom-event'
-import { createAdapter } from '@briancavalier/most-adapter'
+import { createAdapter } from '@most/adapter'
 
 import { emptyApp } from './model'
 import { View } from './view.jsx'
